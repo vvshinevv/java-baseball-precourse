@@ -19,7 +19,7 @@ public class BaseBallGame {
             Computer computer = Computer.of(Balls.createRandomBalls());
             HintResults hintResults = HintResults.of(new ArrayList<>());
             userPlayBallGameWithComputer(hintResults, computer);
-            status = BaseBallDisplay.outputOfFinishMessage();
+            status = BaseBallDisplay.outputOfFinishMessage(Boolean.TRUE);
         }
     }
 

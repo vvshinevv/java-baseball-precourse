@@ -1,16 +1,17 @@
 package baseball.io;
 
 
-import baseball.domain.Ball;
 import baseball.domain.Balls;
 import baseball.domain.GamePlayStatus;
 import baseball.domain.Hint;
 import baseball.domain.HintResult;
 import baseball.domain.HintResults;
+import baseball.exception.PlayBallIllegalArgumentException;
 import nextstep.utils.Console;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static baseball.exception.ExceptionMessage.INVALID_PLAY_BALL_TEXT;
 
 public class BaseBallDisplay {
 
@@ -22,13 +23,19 @@ public class BaseBallDisplay {
     public static Balls input() {
         System.out.print(INPUT_MESSAGE);
         String[] inputs = Console.readLine().split("");
-        List<Ball> inputBalls = new ArrayList<>();
-        for (String input : inputs) {
-            Ball ball = Ball.of(Integer.valueOf(input));
-            inputBalls.add(ball);
-        }
+        return ofBalls(inputs);
+    }
 
-        return Balls.of(inputBalls);
+    private static Balls ofBalls(String[] inputs) {
+        try {
+            return Balls.of(inputs);
+        } catch (PlayBallIllegalArgumentException e) {
+            BaseBallDisplay.printErrorMessage(e.getMessage());
+            return input();
+        } catch (NumberFormatException e) {
+            BaseBallDisplay.printErrorMessage(INVALID_PLAY_BALL_TEXT);
+            return input();
+        }
     }
 
     public static void output(HintResults hintResults) {
@@ -51,10 +58,22 @@ public class BaseBallDisplay {
         }
     }
 
-    public static GamePlayStatus outputOfFinishMessage() {
-        System.out.println(OUTPUT_OF_FINISH_MESSAGE);
+    public static GamePlayStatus outputOfFinishMessage(Boolean flag) {
+        if (flag == Boolean.TRUE) {
+            System.out.println(OUTPUT_OF_FINISH_MESSAGE);
+        }
         System.out.println(OUTPUT_OF_RE_MESSAGE);
         String input = Console.readLine();
-        return GamePlayStatus.findGamePlayStatus(Integer.parseInt(input));
+
+        try {
+            return GamePlayStatus.findGamePlayStatus(Integer.parseInt(input));
+        } catch (PlayBallIllegalArgumentException e) {
+            printErrorMessage(e.getMessage());
+            return outputOfFinishMessage(Boolean.FALSE);
+        }
+    }
+
+    public static void printErrorMessage(String message) {
+        System.out.println(message);
     }
 }

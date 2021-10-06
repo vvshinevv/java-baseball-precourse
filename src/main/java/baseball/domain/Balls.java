@@ -44,6 +44,16 @@ public class Balls {
         return new Balls(balls);
     }
 
+    public static Balls of(String[] balls) {
+        List<Ball> results = new ArrayList<>();
+        for (String ball : balls) {
+            Ball result = Ball.of(Integer.valueOf(ball));
+            results.add(result);
+        }
+
+        return Balls.of(results);
+    }
+
     public static Balls createRandomBalls() {
         Set<Ball> balls = new LinkedHashSet<>();
         while (balls.size() != BALLS_SIZE) {

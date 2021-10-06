@@ -5,8 +5,7 @@ import baseball.exception.PlayBallIllegalArgumentException;
 import static baseball.exception.ExceptionMessage.INVALID_PLAY_BALL_GAME_STATUS_MESSAGE;
 
 public enum GamePlayStatus {
-    START(0),
-    RE_START(1),
+    START(1),
     END(2);
 
     private final Integer status;
