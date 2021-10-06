@@ -15,7 +15,7 @@ import java.util.List;
 public class BaseBallDisplay {
 
     public static final String INPUT_MESSAGE = "숫자를 입력해주세요 : ";
-    public static final String OUTPUT_OF_FINISH_MESSAGE = Balls.BALLS_SIZE + "개의 숫자를 모두 맞히셨습니다! 게임종료";
+    public static final String OUTPUT_OF_FINISH_MESSAGE = Balls.BALLS_SIZE + "개의 숫자를 모두 맞히셨습니다! 게임 끝";
     public static final String OUTPUT_OF_RE_MESSAGE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요";
 
 
@@ -47,7 +47,7 @@ public class BaseBallDisplay {
         }
 
         if (!result.getHint().equals(Hint.NOTHING) && !result.getCount().equals(0)) {
-            System.out.print(result.getCount() + " " + result.getHint().getDescription() + " ");
+            System.out.print(result.getCount() + result.getHint().getDescription() + " ");
         }
     }
 

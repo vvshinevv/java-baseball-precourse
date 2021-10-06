@@ -22,7 +22,7 @@ public enum GamePlayStatus {
     public static GamePlayStatus findGamePlayStatus(int input) {
         GamePlayStatus result = null;
         for (GamePlayStatus gamePlayStatus : GamePlayStatus.values()) {
-            result = findGamePlayStatus(gamePlayStatus, input);
+            result = findGamePlayStatus(result, gamePlayStatus, input);
         }
 
         if (result == null) {
@@ -32,11 +32,11 @@ public enum GamePlayStatus {
         return result;
     }
 
-    private static GamePlayStatus findGamePlayStatus(GamePlayStatus gamePlayStatus, int input) {
+    private static GamePlayStatus findGamePlayStatus(GamePlayStatus beforePlayStatus, GamePlayStatus gamePlayStatus, int input) {
         if (gamePlayStatus.getStatus() == input) {
-            return gamePlayStatus;
+            beforePlayStatus = gamePlayStatus;
         }
 
-        return null;
+        return beforePlayStatus;
     }
 }

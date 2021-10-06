@@ -32,17 +32,22 @@ public class BaseBallGame {
     }
 
     private Boolean checkPlayBallStrike(HintResults hintResults) {
-        Boolean result = Boolean.FALSE;
         for (HintResult hintResult : hintResults.getHintResults()) {
-            result = checkStrikeBallCount(hintResult);
-
+            return checkStrike(hintResult);
         }
-        return result;
+
+        return Boolean.FALSE;
+    }
+
+    private Boolean checkStrike(HintResult hintResult) {
+        if (hintResult.getHint().equals(Hint.STRIKE)) {
+            return checkStrikeBallCount(hintResult);
+        }
+
+        return Boolean.FALSE;
     }
 
     private Boolean checkStrikeBallCount(HintResult hintResult) {
-        return hintResult.getHint().equals(Hint.STRIKE) && hintResult.getCount().equals(Balls.BALLS_SIZE) ?
-                Boolean.TRUE :
-                Boolean.FALSE;
+        return hintResult.getHint().equals(Hint.STRIKE) && hintResult.getCount().equals(Balls.BALLS_SIZE) ? Boolean.TRUE : Boolean.FALSE;
     }
 }
