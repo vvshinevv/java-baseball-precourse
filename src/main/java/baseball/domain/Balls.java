@@ -1,5 +1,6 @@
 package baseball.domain;
 
+import baseball.exception.PlayBallIllegalArgumentException;
 import nextstep.utils.Randoms;
 
 import java.util.ArrayList;
@@ -7,6 +8,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static baseball.exception.ExceptionMessage.EXCEED_PLAY_BALL_SIZE_MESSAGE;
 
 public class Balls {
 
@@ -17,15 +20,26 @@ public class Balls {
     private final List<Ball> balls;
 
     private Balls(List<Ball> balls) {
+        validate(balls);
         this.balls = balls;
     }
 
-    public static Balls of(List<Ball> balls) {
-        return new Balls(balls);
+    private void validate(List<Ball> balls) {
+        if (!isValidBallsSize(balls)) {
+            throw new PlayBallIllegalArgumentException(EXCEED_PLAY_BALL_SIZE_MESSAGE);
+        }
+    }
+
+    private Boolean isValidBallsSize(List<Ball> balls) {
+        return balls.size() == BALLS_SIZE;
     }
 
     public List<Ball> getBalls() {
         return Collections.unmodifiableList(balls);
+    }
+
+    public static Balls of(List<Ball> balls) {
+        return new Balls(balls);
     }
 
     public static Balls createRandomBalls() {
